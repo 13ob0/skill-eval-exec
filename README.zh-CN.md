@@ -1,0 +1,104 @@
+# eval-exec
+
+> 先评估，获得明确批准后再执行。
+
+[English](README.md) | **简体中文**
+
+`eval-exec` 是一个供编码代理使用、通过 agent 工具调用的小型工作流 skill。
+它将基于证据的评估与实施分开，让用户可以在代理修改文件、配置、数据或
+外部状态前，先审阅计划范围。
+
+## 为什么使用它？
+
+变更请求通常隐藏着一些重要问题：真正的瓶颈在哪里、哪些现有路径可以复用、
+哪些语义或风险需要关注，以及如何验证成功？`eval-exec` 会明确这些问题，
+同时避免让每次对话都变成一轮冗长的计划会议。
+
+工作流刻意保持简单：
+
+1. 针对变更请求，通过 agent 工具调用 `eval-exec`。
+2. 代理检查相关证据，只返回评估结果。
+3. 审阅结论、证据、范围、风险和验证计划。
+4. 发送独立的 `执行` 命令，批准实施。
+5. 代理实施已批准的范围，完成验证并报告结果。
+
+调用 skill 会自动开始评估，用户不需要额外附加 `评估`。
+
+## 命令
+
+使用规范的中文命令：
+
+- 开始评估：通过 agent 工具调用 `eval-exec`。
+- 批准实施：`执行`。
+
+模糊的确认语句，例如 `go ahead`、`continue`、`proceed`、`sounds good`、
+`do it`、`let's do it`、`好的`、`继续` 和 `可以`，不会被视为执行命令。
+这样可以让不同代理运行环境中的批准保持明确。
+
+## 评估内容
+
+skill 会根据请求调整评估方式。典型评估包括：
+
+- 结论和当前实现状态；
+- 具体的仓库、运行时、配置、日志或测量证据；
+- 按优先级排列的建议，以及说明顺序原因；
+- 边界、安全问题、兼容性风险和待确认问题；
+- 预计涉及的文件、接口、测试或系统范围；
+- 验证步骤，以及用户可以观察到的预期结果。
+
+评估阶段只允许进行只读检查。执行范围仅限于最新且未改变的评估；如果范围
+发生实质变化，需要重新进行评估。
+
+## 安装
+
+### Skills CLI
+
+如果你的代理支持 [Skills CLI](https://github.com/mattpocock/skills)，可以从
+GitHub 仓库安装：
+
+```bash
+npx skills@latest add <owner>/<repository>
+```
+
+本仓库遵循顶层 `skills/` 目录的常规布局，skill 位于 `skills/eval-exec`。
+
+### 手动安装
+
+克隆或下载本仓库，然后将 `skills/eval-exec` 复制到代理的 skills 目录。
+对于 Codex，目标目录通常是：
+
+```text
+$CODEX_HOME/skills/eval-exec
+```
+
+如果没有设置 `CODEX_HOME`，可以使用当前平台默认的 Codex skills 目录，通常为：
+
+```text
+~/.codex/skills/eval-exec
+```
+
+安装后启动新的代理会话，然后通过 agent 工具调用 `eval-exec`。
+
+## 开发与打包
+
+源文件是 `skills/eval-exec/SKILL.md`。可以使用代理环境中提供的
+skill-creator 脚本进行校验和打包：
+
+```bash
+python <skill-creator>/scripts/quick_validate.py skills/eval-exec
+python <skill-creator>/scripts/package_skill.py skills/eval-exec dist
+```
+
+打包产物包含 skill 目录及其中的 `SKILL.md`；README、许可证和仓库元数据
+仍位于可安装 skill 之外。
+
+## 兼容性与限制
+
+- 工作流面向通过 agent 工具调用的场景设计。
+- 是否自动选择 skill 取决于宿主环境，本仓库不保证自动选择行为。
+- 英文是主要指令语言；中文命令 `评估` 和 `执行` 仍然受支持。
+- 这个 gate 用于协调代理行为，不能替代沙箱、审批、访问控制或部署安全措施。
+
+## 许可证
+
+MIT。详见 [LICENSE](LICENSE)。

@@ -1,6 +1,6 @@
 ---
 name: eval-exec
-description: "A user-invoked evaluate-then-execute workflow for change-oriented tasks. Use when the user explicitly invokes eval-exec before work that may modify files, configuration, data, deployments, or external state. Start with a read-only assessment and wait for explicit `execute` authorization."
+description: "An evaluate-then-execute workflow for change-oriented tasks. Use when eval-exec is invoked through an agent tool before work that may modify files, configuration, data, deployments, or external state. Start with a read-only assessment and wait for explicit `execute` authorization."
 ---
 
 # Eval Exec
@@ -15,14 +15,13 @@ follow the host agent's safety, approval, and tool-use rules.
 
 ## Activation
 
-- Treat an explicit invocation of `eval-exec` as starting the assessment phase
-  for the current request.
-- Do not require the user to append `evaluate` or `评估` after invoking the
-  skill.
+- Treat an invocation of `eval-exec` through the agent tool as starting the
+  assessment phase for the current request.
+- Do not require the user to restate the skill name or append `evaluate` or
+  `评估` after the agent tool invokes the skill.
 - Do not treat skill invocation as execution authorization.
-- If the user does not explicitly invoke this skill, do not claim that
-  `eval-exec` automatically takes over. Whether the host agent selects a skill
-  on its own is outside this skill's guarantee.
+- This skill governs behavior after the agent tool invokes it; whether the host
+  exposes or selects the skill is outside this skill's guarantee.
 - Recognize the literal Chinese command `执行` as the equivalent of
   `execute`.
 
@@ -142,18 +141,14 @@ when an explicit gate is required.
 
 ## Examples
 
+### English examples
+
 **Assessment only**
 
-User: `Invoke eval-exec and fix the login timeout.`
+Agent tool request: invoke `eval-exec` for "Fix the login timeout."
 
 Action: inspect the relevant code and runtime evidence, then return an
 assessment without editing anything.
-
-**Chinese assessment only**
-
-User: `调用 eval-exec，修复登录超时。`
-
-Action: enter the same assessment phase; the user does not need to add `评估`.
 
 **Execute the approved assessment**
 
@@ -162,12 +157,28 @@ User: `execute`
 Action: implement the latest unchanged assessment, validate it, and report the
 result.
 
-User: `执行`
-
-Action: treat it as the Chinese equivalent of `execute`.
-
 **Scope changed**
 
 User: `execute, and also redesign the settings page.`
 
 Action: assess the new settings-page scope before making changes.
+
+### 中文示例
+
+**仅进行评估**
+
+工具调用：`eval-exec`，请求为“修复登录超时”。
+
+操作：检查相关代码和运行时证据，然后返回评估结果，不修改任何内容。
+
+**执行已批准的评估**
+
+用户：`执行`
+
+操作：实施最新且未改变的评估范围，完成验证并报告结果。
+
+**范围发生变化**
+
+用户：`执行，并且还要重做设置页面。`
+
+操作：先针对新的设置页面范围进行评估，再开始修改。

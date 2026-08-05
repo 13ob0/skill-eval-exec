@@ -2,8 +2,10 @@
 
 > Assess first. Execute only after explicit approval.
 
-`eval-exec` is a small, user-invoked workflow skill for coding agents. It
-separates evidence-backed assessment from implementation so users can review
+**English** | [简体中文](README.zh-CN.md)
+
+`eval-exec` is a small workflow skill for coding agents, invoked through an
+agent tool. It separates evidence-backed assessment from implementation so users can review
 the proposed scope before the agent changes files, configuration, data, or
 external state.
 
@@ -16,7 +18,7 @@ turning every conversation into a planning ceremony.
 
 The workflow is deliberately simple:
 
-1. Explicitly invoke `eval-exec` with the change request.
+1. Invoke `eval-exec` through the agent tool for the change request.
 2. The agent inspects relevant evidence and returns an assessment only.
 3. Review the conclusion, evidence, scope, risks, and validation plan.
 4. Send the standalone command `execute` when the assessment is approved.
@@ -30,13 +32,8 @@ append `evaluate` or `评估` to the request.
 
 Use the canonical English commands:
 
-- Start assessment: explicitly invoke `eval-exec`.
+- Start assessment: invoke `eval-exec` through the agent tool.
 - Approve implementation: `execute`.
-
-Chinese conversations are supported without translation:
-
-- `调用 eval-exec，修复这个问题`
-- `执行`
 
 Ambiguous confirmations such as `go ahead`, `continue`, `proceed`, `sounds
 good`, `do it`, `好的`, `继续`, and `可以` are intentionally not treated as the
@@ -83,8 +80,8 @@ $CODEX_HOME/skills/eval-exec
 When `CODEX_HOME` is not set, use the default Codex skills directory for your
 platform, commonly `~/.codex/skills/eval-exec`.
 
-Start a new agent session after installation, then explicitly invoke
-`eval-exec`.
+Start a new agent session after installation, then invoke `eval-exec` through
+the agent tool.
 
 ## Development and packaging
 
@@ -101,7 +98,7 @@ license, and repository metadata remain outside the installable skill.
 
 ## Compatibility and limits
 
-- The workflow is designed for explicit user invocation.
+- The workflow is designed for invocation through an agent tool.
 - Automatic skill selection is host-specific and is not guaranteed by this
   repository.
 - English is the primary instruction language; the literal Chinese commands
