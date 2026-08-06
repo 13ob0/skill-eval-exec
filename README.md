@@ -16,6 +16,42 @@ which existing paths can be reused, what semantics or risks matter, and how
 will success be verified? `eval-exec` makes those questions explicit without
 turning every conversation into a planning ceremony.
 
+A model can be highly capable at generating code without accurately aligning
+with the user's requirements. It may produce an implementation that is
+complete, internally consistent, and even test-passing while solving the
+wrong problem or making technical trade-offs the user did not approve.
+
+In other words, model capability determines how far a solution can be carried
+out, but does not automatically determine whether that solution matches the
+user's actual goal. Terms such as "high performance," "secure," and
+"compatible" still need to be aligned against the concrete context, boundaries,
+and acceptance criteria.
+
+`eval-exec` catches this kind of direction drift before code changes begin. It
+first asks the model to make its understanding of the requirements, impact
+surface, and implementation approach explicit, then leaves the decision to
+execute with the user.
+
+The assessment focuses on three questions:
+
+- **What does the goal mean?** Turn vague goals into observable behavior,
+  boundaries, and acceptance criteria.
+- **What will be affected?** Identify the files, interfaces, callers, data
+  paths, and potential chain reactions involved.
+- **What is the decision boundary?** Make clear which implementation details
+  the agent may choose and which architectural decisions, trade-offs, and
+  risks require user approval.
+
+Assessment is therefore not about proving whether the model can write code;
+it is about confirming what the model is preparing to write. When a direction
+drift is exposed at the text layer, the scope or interpretation can usually be
+adjusted at low cost. Once the drift has reached code, tests, and interface
+contracts, correction becomes substantially more expensive.
+
+Continued use of assessment also helps users track the project's structure and
+the impact of accumulated changes, preserving overall direction while taking
+advantage of the model's execution speed.
+
 The workflow is deliberately simple:
 
 1. Invoke `eval-exec` through the agent tool for the change request.
