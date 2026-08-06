@@ -58,12 +58,22 @@ unchanged assessment; a material scope change requires a new assessment.
 
 ### Skills CLI
 
-If your agent supports the [Skills CLI](https://github.com/mattpocock/skills),
-install from the GitHub repository with:
+Install this skill from GitHub with the [`skills` CLI](https://www.skills.sh/docs/cli):
+
+For a project-scoped installation:
 
 ```bash
-npx skills@latest add <owner>/<repository>
+npx skills add 13ob0/skill-eval-execute --skill eval-exec
 ```
+
+For a global Codex installation:
+
+```bash
+npx skills add 13ob0/skill-eval-execute --skill eval-exec --global --agent codex
+```
+
+Both commands fetch the skill from GitHub, so the target commit must already
+be pushed to the repository.
 
 This repository follows the conventional top-level `skills/` layout, with the
 skill at `skills/eval-exec`.

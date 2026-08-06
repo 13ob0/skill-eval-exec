@@ -53,12 +53,21 @@ skill 会根据请求调整评估方式。典型评估包括：
 
 ### Skills CLI
 
-如果你的代理支持 [Skills CLI](https://github.com/mattpocock/skills)，可以从
-GitHub 仓库安装：
+使用 [`skills` CLI](https://www.skills.sh/docs/cli) 从 GitHub 安装此 skill：
+
+项目级安装：
 
 ```bash
-npx skills@latest add <owner>/<repository>
+npx skills add 13ob0/skill-eval-execute --skill eval-exec
 ```
+
+Codex 全局安装：
+
+```bash
+npx skills add 13ob0/skill-eval-execute --skill eval-exec --global --agent codex
+```
+
+上述命令都会从 GitHub 拉取 skill，因此目标提交必须已经推送到远端仓库。
 
 本仓库遵循顶层 `skills/` 目录的常规布局，skill 位于 `skills/eval-exec`。
 
