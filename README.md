@@ -1,5 +1,7 @@
 # eval-exec
 
+Evaluate-Execute
+
 > Assess first. Execute only after explicit approval.
 
 **English** | [简体中文](README.zh-CN.md)
@@ -51,6 +53,30 @@ contracts, correction becomes substantially more expensive.
 Continued use of assessment also helps users track the project's structure and
 the impact of accumulated changes, preserving overall direction while taking
 advantage of the model's execution speed.
+
+## How It Differs from Full Planning Workflows
+
+`eval-exec` is not a full Plan Mode, architecture-design, or SDD process. It
+is a lightweight pre-execution alignment step focused on three questions:
+
+- Does the model correctly understand the current request?
+- What implementation direction is the model preparing to take?
+- What are the main impacts and risks of that direction?
+
+The assessment phase may perform necessary read-only inspection, but it does
+not modify files, configuration, data, or external state. The agent implements
+the latest unchanged assessment only after the user sends the standalone
+`execute` or `执行` command.
+
+It is suited to everyday local changes, ambiguous requests, and tasks where
+the direction should be confirmed before implementation. Architecture
+rewrites, complex migrations, and collaborative projects may still require a
+more complete planning and design process.
+
+To keep an assessment lightweight, limit the requested output to the
+requirement understanding, key ambiguities, recommended approach, main risks,
+and validation method. The agent should not generate code or modify files
+during this phase.
 
 The workflow is deliberately simple:
 
