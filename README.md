@@ -122,7 +122,7 @@ unchanged assessment; a material scope change requires a new assessment.
 
 Send the following message to your Agent:
 
-> Please install this skill for me: [https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-execute)
+> Please install this skill for me: [https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-exec)
 
 The Agent will read the repository, find **eval-exec**, and complete the
 installation. Once installed, it will be displayed as “Eval Exec”.

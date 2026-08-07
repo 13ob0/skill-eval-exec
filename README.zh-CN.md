@@ -87,7 +87,7 @@ skill 会根据请求调整评估方式。典型评估包括：
 
 把下面这句话发给你的 Agent。
 
-> 帮我安装这个skill：[https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-execute)
+> 帮我安装这个skill：[https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-exec)
 
 Agent 会读取仓库、找到 **eval-exec**，完成安装。装好之后显示名为「Eval Exec」。
 
