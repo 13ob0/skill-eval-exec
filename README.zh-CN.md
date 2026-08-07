@@ -83,6 +83,14 @@ skill 会根据请求调整评估方式。典型评估包括：
 
 ## 安装
 
+### 通过 Agent 安装
+
+把下面这句话发给你的 Agent。
+
+> 帮我安装这个skill：[https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-execute)
+
+Agent 会读取仓库、找到 **eval-exec**，完成安装。装好之后显示名为「Eval Exec」。
+
 ### Skills CLI
 
 使用 [`skills` CLI](https://www.skills.sh/docs/cli) 从 GitHub 安装此 skill：
@@ -90,13 +98,13 @@ skill 会根据请求调整评估方式。典型评估包括：
 项目级安装：
 
 ```bash
-npx skills add 13ob0/skill-eval-execute --skill eval-exec
+npx skills add 13ob0/skill-eval-exec --skill eval-exec
 ```
 
 Codex 全局安装：
 
 ```bash
-npx skills add 13ob0/skill-eval-execute --skill eval-exec --global --agent codex
+npx skills add 13ob0/skill-eval-exec --skill eval-exec --global --agent codex
 ```
 
 上述命令都会从 GitHub 拉取 skill，因此目标提交必须已经推送到远端仓库。

@@ -118,6 +118,15 @@ unchanged assessment; a material scope change requires a new assessment.
 
 ## Installation
 
+### Install through an Agent
+
+Send the following message to your Agent:
+
+> Please install this skill for me: [https://github.com/13ob0/skill-eval-exec](https://github.com/13ob0/skill-eval-execute)
+
+The Agent will read the repository, find **eval-exec**, and complete the
+installation. Once installed, it will be displayed as “Eval Exec”.
+
 ### Skills CLI
 
 Install this skill from GitHub with the [`skills` CLI](https://www.skills.sh/docs/cli):
@@ -125,13 +134,13 @@ Install this skill from GitHub with the [`skills` CLI](https://www.skills.sh/doc
 For a project-scoped installation:
 
 ```bash
-npx skills add 13ob0/skill-eval-execute --skill eval-exec
+npx skills add 13ob0/skill-eval-exec --skill eval-exec
 ```
 
 For a global Codex installation:
 
 ```bash
-npx skills add 13ob0/skill-eval-execute --skill eval-exec --global --agent codex
+npx skills add 13ob0/skill-eval-exec --skill eval-exec --global --agent codex
 ```
 
 Both commands fetch the skill from GitHub, so the target commit must already
