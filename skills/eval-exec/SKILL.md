@@ -25,9 +25,12 @@ follow the host agent's safety, approval, and tool-use rules.
 - Recognize the literal Chinese command `执行` as the equivalent of
   `execute`.
 
-During the assessment phase, allow only read-only inspection and reasoning.
+During the assessment phase, allow only read-only inspection and reasoning,
+except for the UI prototype described below.
 Do not edit files, run state-changing commands, alter data or configuration,
-deploy, send external messages, or perform other mutations.
+deploy, send external messages, or perform other mutations. The one exception
+is the UI prototype page described under UI or interaction assessment, which
+is written outside the repository.
 
 ## Assessment phase
 
@@ -104,6 +107,30 @@ Describe the recommended information hierarchy, interaction states,
 loading/error behavior, data source, navigation behavior, and the smallest
 set of components and tests involved.
 
+**UI prototype is required.** When the request changes anything the user sees
+(layout, components, styling, motion, navigation, or interaction), the
+assessment must include a standalone prototype HTML page, not only a text
+description:
+
+- Write it as a single self-contained HTML file (inline CSS and JS, no build
+  step, no project imports). Put it in a scratch or preview folder outside the
+  repository (for example a `prototypes/` folder in the user's home directory,
+  or the folder your host agent designates for previews) so the project stays
+  untouched.
+- Show the proposed states: default, hover or active, loading or empty, error,
+  and any modal, drawer or motion. Use realistic placeholder data, marked as
+  illustrative.
+- Reuse the project's existing visual tokens and component patterns where
+  they are visible in the code, so the prototype matches the real page.
+- Give the file as a clickable local file link supported by the host in the
+  assessment (for Codex, use an absolute filesystem path), and list the
+  states it covers and what it does not verify (for example, real data or
+  real browser interaction).
+- Creating this prototype is the one file write allowed in the assessment
+  phase. It must stay outside the repository and must not change project
+  files, configuration, or data.
+- If the request is text-only with no visible UI change, skip the prototype.
+
 ## Execution phase
 
 Enter the execution phase only when all of the following are true:
@@ -130,7 +157,8 @@ when an explicit gate is required.
 
 ## Safety boundaries
 
-- Keep the assessment read-only, including when the request sounds urgent.
+- Keep the assessment read-only except for the UI prototype described above,
+  including when the request sounds urgent.
 - Do not infer authorization for deployment, destructive operations, external
   communication, or unrelated cleanup from `execute`.
 - Preserve the user's existing worktree changes.
@@ -148,7 +176,8 @@ when an explicit gate is required.
 Agent tool request: invoke `eval-exec` for "Fix the login timeout."
 
 Action: inspect the relevant code and runtime evidence, then return an
-assessment without editing anything.
+assessment without modifying project files; create the required prototype
+only if the request includes a visible UI change.
 
 **Execute the approved assessment**
 
@@ -169,7 +198,8 @@ Action: assess the new settings-page scope before making changes.
 
 工具调用：`eval-exec`，请求为“修复登录超时”。
 
-操作：检查相关代码和运行时证据，然后返回评估结果，不修改任何内容。
+操作：检查相关代码和运行时证据，然后返回评估结果，不修改项目文件；
+仅当请求涉及可见 UI 变化时，按要求在仓库外创建原型。
 
 **执行已批准的评估**
 
